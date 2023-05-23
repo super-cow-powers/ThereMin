@@ -1,0 +1,379 @@
+ARM GAS  /tmp/ccmAIvkH.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"waveform.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/waveform.c"
+  18              		.global	WF_BUFFER
+  19              		.section	.bss.WF_BUFFER,"aw",%nobits
+  20              		.align	2
+  23              	WF_BUFFER:
+  24 0000 00000000 		.space	200
+  24      00000000 
+  24      00000000 
+  24      00000000 
+  24      00000000 
+  25              		.global	TRIANGLE_WF
+  26              		.section	.rodata.TRIANGLE_WF,"a"
+  27              		.align	2
+  30              	TRIANGLE_WF:
+  31 0000 0000     		.short	0
+  32 0002 5300     		.short	83
+  33 0004 A500     		.short	165
+  34 0006 F800     		.short	248
+  35 0008 4B01     		.short	331
+  36 000a 9E01     		.short	414
+  37 000c F001     		.short	496
+  38 000e 4302     		.short	579
+  39 0010 9602     		.short	662
+  40 0012 E902     		.short	745
+  41 0014 3B03     		.short	827
+  42 0016 8E03     		.short	910
+  43 0018 E103     		.short	993
+  44 001a 3304     		.short	1075
+  45 001c 8604     		.short	1158
+  46 001e D904     		.short	1241
+  47 0020 2C05     		.short	1324
+  48 0022 7E05     		.short	1406
+  49 0024 D105     		.short	1489
+  50 0026 2406     		.short	1572
+  51 0028 7706     		.short	1655
+  52 002a C906     		.short	1737
+  53 002c 1C07     		.short	1820
+  54 002e 6F07     		.short	1903
+  55 0030 C107     		.short	1985
+  56 0032 1408     		.short	2068
+  57 0034 6708     		.short	2151
+ARM GAS  /tmp/ccmAIvkH.s 			page 2
+
+
+  58 0036 BA08     		.short	2234
+  59 0038 0C09     		.short	2316
+  60 003a 5F09     		.short	2399
+  61 003c B209     		.short	2482
+  62 003e 050A     		.short	2565
+  63 0040 570A     		.short	2647
+  64 0042 AA0A     		.short	2730
+  65 0044 FD0A     		.short	2813
+  66 0046 4F0B     		.short	2895
+  67 0048 A20B     		.short	2978
+  68 004a F50B     		.short	3061
+  69 004c 480C     		.short	3144
+  70 004e 9A0C     		.short	3226
+  71 0050 ED0C     		.short	3309
+  72 0052 400D     		.short	3392
+  73 0054 930D     		.short	3475
+  74 0056 E50D     		.short	3557
+  75 0058 380E     		.short	3640
+  76 005a 8B0E     		.short	3723
+  77 005c DD0E     		.short	3805
+  78 005e 300F     		.short	3888
+  79 0060 830F     		.short	3971
+  80 0062 D60F     		.short	4054
+  81 0064 D60F     		.short	4054
+  82 0066 830F     		.short	3971
+  83 0068 300F     		.short	3888
+  84 006a DD0E     		.short	3805
+  85 006c 8B0E     		.short	3723
+  86 006e 380E     		.short	3640
+  87 0070 E50D     		.short	3557
+  88 0072 930D     		.short	3475
+  89 0074 400D     		.short	3392
+  90 0076 ED0C     		.short	3309
+  91 0078 9A0C     		.short	3226
+  92 007a 480C     		.short	3144
+  93 007c F50B     		.short	3061
+  94 007e A20B     		.short	2978
+  95 0080 4F0B     		.short	2895
+  96 0082 FD0A     		.short	2813
+  97 0084 AA0A     		.short	2730
+  98 0086 570A     		.short	2647
+  99 0088 050A     		.short	2565
+ 100 008a B209     		.short	2482
+ 101 008c 5F09     		.short	2399
+ 102 008e 0C09     		.short	2316
+ 103 0090 BA08     		.short	2234
+ 104 0092 6708     		.short	2151
+ 105 0094 1408     		.short	2068
+ 106 0096 C107     		.short	1985
+ 107 0098 6F07     		.short	1903
+ 108 009a 1C07     		.short	1820
+ 109 009c C906     		.short	1737
+ 110 009e 7706     		.short	1655
+ 111 00a0 2406     		.short	1572
+ 112 00a2 D105     		.short	1489
+ 113 00a4 7E05     		.short	1406
+ 114 00a6 2C05     		.short	1324
+ARM GAS  /tmp/ccmAIvkH.s 			page 3
+
+
+ 115 00a8 D904     		.short	1241
+ 116 00aa 8604     		.short	1158
+ 117 00ac 3304     		.short	1075
+ 118 00ae E103     		.short	993
+ 119 00b0 8E03     		.short	910
+ 120 00b2 3B03     		.short	827
+ 121 00b4 E902     		.short	745
+ 122 00b6 9602     		.short	662
+ 123 00b8 4302     		.short	579
+ 124 00ba F001     		.short	496
+ 125 00bc 9E01     		.short	414
+ 126 00be 4B01     		.short	331
+ 127 00c0 F800     		.short	248
+ 128 00c2 A500     		.short	165
+ 129 00c4 5300     		.short	83
+ 130 00c6 0000     		.short	0
+ 131              		.global	SQUARE_WF
+ 132              		.section	.rodata.SQUARE_WF,"a"
+ 133              		.align	2
+ 136              	SQUARE_WF:
+ 137 0000 FF0F     		.short	4095
+ 138 0002 FF0F     		.short	4095
+ 139 0004 FF0F     		.short	4095
+ 140 0006 FF0F     		.short	4095
+ 141 0008 FF0F     		.short	4095
+ 142 000a FF0F     		.short	4095
+ 143 000c FF0F     		.short	4095
+ 144 000e FF0F     		.short	4095
+ 145 0010 FF0F     		.short	4095
+ 146 0012 FF0F     		.short	4095
+ 147 0014 FF0F     		.short	4095
+ 148 0016 FF0F     		.short	4095
+ 149 0018 FF0F     		.short	4095
+ 150 001a FF0F     		.short	4095
+ 151 001c FF0F     		.short	4095
+ 152 001e FF0F     		.short	4095
+ 153 0020 FF0F     		.short	4095
+ 154 0022 FF0F     		.short	4095
+ 155 0024 FF0F     		.short	4095
+ 156 0026 FF0F     		.short	4095
+ 157 0028 FF0F     		.short	4095
+ 158 002a FF0F     		.short	4095
+ 159 002c FF0F     		.short	4095
+ 160 002e FF0F     		.short	4095
+ 161 0030 FF0F     		.short	4095
+ 162 0032 FF0F     		.short	4095
+ 163 0034 FF0F     		.short	4095
+ 164 0036 FF0F     		.short	4095
+ 165 0038 FF0F     		.short	4095
+ 166 003a FF0F     		.short	4095
+ 167 003c FF0F     		.short	4095
+ 168 003e FF0F     		.short	4095
+ 169 0040 FF0F     		.short	4095
+ 170 0042 FF0F     		.short	4095
+ 171 0044 FF0F     		.short	4095
+ 172 0046 FF0F     		.short	4095
+ 173 0048 FF0F     		.short	4095
+ARM GAS  /tmp/ccmAIvkH.s 			page 4
+
+
+ 174 004a FF0F     		.short	4095
+ 175 004c FF0F     		.short	4095
+ 176 004e FF0F     		.short	4095
+ 177 0050 FF0F     		.short	4095
+ 178 0052 FF0F     		.short	4095
+ 179 0054 FF0F     		.short	4095
+ 180 0056 FF0F     		.short	4095
+ 181 0058 FF0F     		.short	4095
+ 182 005a FF0F     		.short	4095
+ 183 005c FF0F     		.short	4095
+ 184 005e FF0F     		.short	4095
+ 185 0060 FF0F     		.short	4095
+ 186 0062 FF0F     		.short	4095
+ 187 0064 0000     		.short	0
+ 188 0066 0000     		.short	0
+ 189 0068 0000     		.short	0
+ 190 006a 0000     		.short	0
+ 191 006c 0000     		.short	0
+ 192 006e 0000     		.short	0
+ 193 0070 0000     		.short	0
+ 194 0072 0000     		.short	0
+ 195 0074 0000     		.short	0
+ 196 0076 0000     		.short	0
+ 197 0078 0000     		.short	0
+ 198 007a 0000     		.short	0
+ 199 007c 0000     		.short	0
+ 200 007e 0000     		.short	0
+ 201 0080 0000     		.short	0
+ 202 0082 0000     		.short	0
+ 203 0084 0000     		.short	0
+ 204 0086 0000     		.short	0
+ 205 0088 0000     		.short	0
+ 206 008a 0000     		.short	0
+ 207 008c 0000     		.short	0
+ 208 008e 0000     		.short	0
+ 209 0090 0000     		.short	0
+ 210 0092 0000     		.short	0
+ 211 0094 0000     		.short	0
+ 212 0096 0000     		.short	0
+ 213 0098 0000     		.short	0
+ 214 009a 0000     		.short	0
+ 215 009c 0000     		.short	0
+ 216 009e 0000     		.short	0
+ 217 00a0 0000     		.short	0
+ 218 00a2 0000     		.short	0
+ 219 00a4 0000     		.short	0
+ 220 00a6 0000     		.short	0
+ 221 00a8 0000     		.short	0
+ 222 00aa 0000     		.short	0
+ 223 00ac 0000     		.short	0
+ 224 00ae 0000     		.short	0
+ 225 00b0 0000     		.short	0
+ 226 00b2 0000     		.short	0
+ 227 00b4 0000     		.short	0
+ 228 00b6 0000     		.short	0
+ 229 00b8 0000     		.short	0
+ 230 00ba 0000     		.short	0
+ARM GAS  /tmp/ccmAIvkH.s 			page 5
+
+
+ 231 00bc 0000     		.short	0
+ 232 00be 0000     		.short	0
+ 233 00c0 0000     		.short	0
+ 234 00c2 0000     		.short	0
+ 235 00c4 0000     		.short	0
+ 236 00c6 FF0F     		.short	4095
+ 237              		.global	SINE_WF
+ 238              		.section	.rodata.SINE_WF,"a"
+ 239              		.align	2
+ 242              	SINE_WF:
+ 243 0000 0008     		.short	2048
+ 244 0002 8108     		.short	2177
+ 245 0004 0309     		.short	2307
+ 246 0006 8309     		.short	2435
+ 247 0008 020A     		.short	2562
+ 248 000a 7E0A     		.short	2686
+ 249 000c F80A     		.short	2808
+ 250 000e 700B     		.short	2928
+ 251 0010 E30B     		.short	3043
+ 252 0012 520C     		.short	3154
+ 253 0014 BD0C     		.short	3261
+ 254 0016 240D     		.short	3364
+ 255 0018 840D     		.short	3460
+ 256 001a E00D     		.short	3552
+ 257 001c 350E     		.short	3637
+ 258 001e 830E     		.short	3715
+ 259 0020 CB0E     		.short	3787
+ 260 0022 0C0F     		.short	3852
+ 261 0024 460F     		.short	3910
+ 262 0026 780F     		.short	3960
+ 263 0028 A30F     		.short	4003
+ 264 002a C50F     		.short	4037
+ 265 002c E00F     		.short	4064
+ 266 002e F20F     		.short	4082
+ 267 0030 FD0F     		.short	4093
+ 268 0032 FF0F     		.short	4095
+ 269 0034 F90F     		.short	4089
+ 270 0036 EA0F     		.short	4074
+ 271 0038 D40F     		.short	4052
+ 272 003a B50F     		.short	4021
+ 273 003c 8E0F     		.short	3982
+ 274 003e 600F     		.short	3936
+ 275 0040 2A0F     		.short	3882
+ 276 0042 ED0E     		.short	3821
+ 277 0044 A80E     		.short	3752
+ 278 0046 5D0E     		.short	3677
+ 279 0048 0B0E     		.short	3595
+ 280 004a B30D     		.short	3507
+ 281 004c 550D     		.short	3413
+ 282 004e F10C     		.short	3313
+ 283 0050 890C     		.short	3209
+ 284 0052 1B0C     		.short	3099
+ 285 0054 AA0B     		.short	2986
+ 286 0056 340B     		.short	2868
+ 287 0058 BC0A     		.short	2748
+ 288 005a 400A     		.short	2624
+ 289 005c C309     		.short	2499
+ARM GAS  /tmp/ccmAIvkH.s 			page 6
+
+
+ 290 005e 4309     		.short	2371
+ 291 0060 C208     		.short	2242
+ 292 0062 4008     		.short	2112
+ 293 0064 BF07     		.short	1983
+ 294 0066 3D07     		.short	1853
+ 295 0068 BC06     		.short	1724
+ 296 006a 3C06     		.short	1596
+ 297 006c BF05     		.short	1471
+ 298 006e 4305     		.short	1347
+ 299 0070 CB04     		.short	1227
+ 300 0072 5504     		.short	1109
+ 301 0074 E403     		.short	996
+ 302 0076 7603     		.short	886
+ 303 0078 0E03     		.short	782
+ 304 007a AA02     		.short	682
+ 305 007c 4C02     		.short	588
+ 306 007e F401     		.short	500
+ 307 0080 A201     		.short	418
+ 308 0082 5701     		.short	343
+ 309 0084 1201     		.short	274
+ 310 0086 D500     		.short	213
+ 311 0088 9F00     		.short	159
+ 312 008a 7100     		.short	113
+ 313 008c 4A00     		.short	74
+ 314 008e 2B00     		.short	43
+ 315 0090 1500     		.short	21
+ 316 0092 0600     		.short	6
+ 317 0094 0000     		.short	0
+ 318 0096 0200     		.short	2
+ 319 0098 0D00     		.short	13
+ 320 009a 1F00     		.short	31
+ 321 009c 3A00     		.short	58
+ 322 009e 5C00     		.short	92
+ 323 00a0 8700     		.short	135
+ 324 00a2 B900     		.short	185
+ 325 00a4 F300     		.short	243
+ 326 00a6 3401     		.short	308
+ 327 00a8 7C01     		.short	380
+ 328 00aa CA01     		.short	458
+ 329 00ac 1F02     		.short	543
+ 330 00ae 7B02     		.short	635
+ 331 00b0 DB02     		.short	731
+ 332 00b2 4203     		.short	834
+ 333 00b4 AD03     		.short	941
+ 334 00b6 1C04     		.short	1052
+ 335 00b8 8F04     		.short	1167
+ 336 00ba 0705     		.short	1287
+ 337 00bc 8105     		.short	1409
+ 338 00be FD05     		.short	1533
+ 339 00c0 7C06     		.short	1660
+ 340 00c2 FC06     		.short	1788
+ 341 00c4 7E07     		.short	1918
+ 342 00c6 FF07     		.short	2047
+ 343              		.text
+ 344              	.Letext0:
+ 345              		.file 2 "/usr/arm-none-eabi/include/machine/_default_types.h"
+ 346              		.file 3 "/usr/arm-none-eabi/include/sys/_stdint.h"
+ARM GAS  /tmp/ccmAIvkH.s 			page 7
+
+
+ 347              		.file 4 "Core/Inc/waveform.h"
+ARM GAS  /tmp/ccmAIvkH.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 waveform.c
+     /tmp/ccmAIvkH.s:23     .bss.WF_BUFFER:00000000 WF_BUFFER
+     /tmp/ccmAIvkH.s:20     .bss.WF_BUFFER:00000000 $d
+     /tmp/ccmAIvkH.s:30     .rodata.TRIANGLE_WF:00000000 TRIANGLE_WF
+     /tmp/ccmAIvkH.s:27     .rodata.TRIANGLE_WF:00000000 $d
+     /tmp/ccmAIvkH.s:136    .rodata.SQUARE_WF:00000000 SQUARE_WF
+     /tmp/ccmAIvkH.s:133    .rodata.SQUARE_WF:00000000 $d
+     /tmp/ccmAIvkH.s:242    .rodata.SINE_WF:00000000 SINE_WF
+     /tmp/ccmAIvkH.s:239    .rodata.SINE_WF:00000000 $d
+
+NO UNDEFINED SYMBOLS

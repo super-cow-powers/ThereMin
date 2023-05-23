@@ -37,6 +37,7 @@ BUILD_DIR = build
 # C sources
 C_SOURCES =  \
 Core/Src/main.c \
+Core/Src/waveform.c \
 Core/Src/stm32l152-setup.c \
 Core/Src/stm32l1xx_it.c \
 Core/Src/system_stm32l1xx.c  

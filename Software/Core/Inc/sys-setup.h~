@@ -7,4 +7,8 @@ void platform_init();
 
 /** Enable SysTick */
 void enable_tick ();
+
+/** Configure the GPIOs */
+void configure_gpio();
+
 #endif

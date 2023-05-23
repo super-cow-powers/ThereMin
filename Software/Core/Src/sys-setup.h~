@@ -1,0 +1,9 @@
+#ifdef SYSSETUP_h
+extern uint32_t SYSTICK_VAL;
+
+/** Init the platform */
+void platform_init();
+
+/** Enable SysTick */
+void enable_tick ();
+#endif

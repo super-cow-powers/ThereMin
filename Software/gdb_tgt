@@ -1,0 +1,15 @@
+target extended-remote localhost:3333
+define c 
+  continue
+  refresh
+end
+
+define n
+  next
+  refresh
+end
+
+define s
+  step
+  refresh
+end

@@ -1,0 +1,126 @@
+ARM GAS  /tmp/ccLpI9SV.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/main.c"
+  18              		.section	.text.main,"ax",%progbits
+  19              		.align	1
+  20              		.global	main
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	main:
+  26              	.LFB72:
+   1:Core/Src/main.c **** #include "main.h"
+   2:Core/Src/main.c **** #include "stm32l152xe.h"
+   3:Core/Src/main.c **** #include "stm32l1xx_it.h"
+   4:Core/Src/main.c **** #include "sys-setup.h"
+   5:Core/Src/main.c **** #include <stdint.h>
+   6:Core/Src/main.c **** 
+   7:Core/Src/main.c **** // DAC on PA4
+   8:Core/Src/main.c **** 
+   9:Core/Src/main.c **** /**
+  10:Core/Src/main.c ****   * @brief  The application entry point.
+  11:Core/Src/main.c ****   * @retval int
+  12:Core/Src/main.c ****   */
+  13:Core/Src/main.c **** int main(void)
+  14:Core/Src/main.c **** {
+  27              		.loc 1 14 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 08B5     		push	{r3, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  15:Core/Src/main.c ****   uint8_t val = 0;
+  36              		.loc 1 15 3 view .LVU1
+  37              	.LVL0:
+  16:Core/Src/main.c ****   platform_init();
+  38              		.loc 1 16 3 view .LVU2
+  39 0002 FFF7FEFF 		bl	platform_init
+  40              	.LVL1:
+  15:Core/Src/main.c ****   uint8_t val = 0;
+  41              		.loc 1 15 11 is_stmt 0 view .LVU3
+ARM GAS  /tmp/ccLpI9SV.s 			page 2
+
+
+  42 0006 0020     		movs	r0, #0
+  43 0008 03E0     		b	.L2
+  44              	.LVL2:
+  45              	.L5:
+  17:Core/Src/main.c ****   while (1) {
+  18:Core/Src/main.c ****     if (SYSTICK_VAL % 100) {
+  19:Core/Src/main.c ****       val ^=1;
+  46              		.loc 1 19 7 is_stmt 1 view .LVU4
+  47              		.loc 1 19 11 is_stmt 0 view .LVU5
+  48 000a 80F00100 		eor	r0, r0, #1
+  49              	.LVL3:
+  20:Core/Src/main.c ****       GPIOA->ODR = val;
+  50              		.loc 1 20 7 is_stmt 1 view .LVU6
+  51              		.loc 1 20 18 is_stmt 0 view .LVU7
+  52 000e 074B     		ldr	r3, .L6
+  53 0010 5861     		str	r0, [r3, #20]
+  54              	.LVL4:
+  55              	.L2:
+  17:Core/Src/main.c ****   while (1) {
+  56              		.loc 1 17 3 is_stmt 1 view .LVU8
+  18:Core/Src/main.c ****       val ^=1;
+  57              		.loc 1 18 5 view .LVU9
+  18:Core/Src/main.c ****       val ^=1;
+  58              		.loc 1 18 21 is_stmt 0 view .LVU10
+  59 0012 074B     		ldr	r3, .L6+4
+  60 0014 1A68     		ldr	r2, [r3]
+  61 0016 074B     		ldr	r3, .L6+8
+  62 0018 A3FB0213 		umull	r1, r3, r3, r2
+  63 001c 5B09     		lsrs	r3, r3, #5
+  64 001e 6421     		movs	r1, #100
+  65 0020 01FB1323 		mls	r3, r1, r3, r2
+  18:Core/Src/main.c ****       val ^=1;
+  66              		.loc 1 18 8 view .LVU11
+  67 0024 002B     		cmp	r3, #0
+  68 0026 F4D0     		beq	.L2
+  69 0028 EFE7     		b	.L5
+  70              	.L7:
+  71 002a 00BF     		.align	2
+  72              	.L6:
+  73 002c 00000240 		.word	1073872896
+  74 0030 00000000 		.word	SYSTICK_VAL
+  75 0034 1F85EB51 		.word	1374389535
+  76              		.cfi_endproc
+  77              	.LFE72:
+  79              		.text
+  80              	.Letext0:
+  81              		.file 2 "/usr/arm-none-eabi/include/machine/_default_types.h"
+  82              		.file 3 "/usr/arm-none-eabi/include/sys/_stdint.h"
+  83              		.file 4 "Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l152xe.h"
+  84              		.file 5 "Core/Inc/stm32l1xx_it.h"
+  85              		.file 6 "Core/Src/sys-setup.h"
+ARM GAS  /tmp/ccLpI9SV.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccLpI9SV.s:19     .text.main:0000000000000000 $t
+     /tmp/ccLpI9SV.s:25     .text.main:0000000000000000 main
+     /tmp/ccLpI9SV.s:73     .text.main:000000000000002c $d
+
+UNDEFINED SYMBOLS
+platform_init
+SYSTICK_VAL

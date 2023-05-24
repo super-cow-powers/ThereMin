@@ -1,2 +1,8 @@
 */*auto*
 *backups/
+Software/build/*
+Software/.cache/*
+*.o
+*.elf
+*.bin
+*~

@@ -76,7 +76,6 @@ static void _configureDacTimer(void) {
   TIM7->CR1 |= 0b1 << TIM_CR1_URS;
   TIM7->DIER |= TIM_DIER_UDE_Msk; //Enable DMA Request on update
   TIM7->ARR = 1000; //Start with Auto-reloading 2^16 -1
-
   DBGMCU->APB1FZ |= DBGMCU_APB1_FZ_DBG_TIM7_STOP; //Freeze on breakpoint
 }
 
@@ -88,9 +87,14 @@ static void _configurePitchTimer(void) {
   TIM2->CR2 |= 0b1U << TIM_CR2_CCDS_Pos; //DMA on update event
   TIM2->SMCR |= 0b100U << TIM_SMCR_SMS_Pos; //Slave Reset Mode
   TIM2->DIER |= 1U << TIM_DIER_UDE_Pos; // DMA On Update
-  TIM2->CCR1 |= 0b10 << 0; // CC1S to TI2
-  
-  //TIM2->CR1 |= 
+  TIM2->CCMR1 |= 0b10 << TIM_CCMR1_CC1S_Pos; // CC1S to TI2
+  TIM2->CCER &= ~(TIM_CCER_CC1P | TIM_CCER_CC1NP); //Rising Edge
+  TIM2->CCMR1 |= 0b01 << TIM_CCMR1_CC2S_Pos; //CC2S to TI2
+  TIM2->CCER |= TIM_CCER_CC2P;
+  TIM2->CCER &= ~(TIM_CCER_CC2NP);
+  TIM2->SMCR |= 0b101 << TIM_SMCR_TS_Pos;
+  TIM2->CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E;
+  TIM2->CR1 |= 1U;
 }
 
 static void _configureVolumeTimer(void) {

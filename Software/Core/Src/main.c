@@ -7,6 +7,7 @@
 
 // DAC on PA4
 static volatile TIM_TypeDef *tim = TIM7;
+static volatile TIM_TypeDef *tim2 = TIM2;
 static volatile DAC_TypeDef *dac = DAC;
 static volatile DMA_Channel_TypeDef* dacDma = DMA1_Channel3;
 

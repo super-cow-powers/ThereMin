@@ -2,6 +2,11 @@
 #define SYSSETUP_h
 #include <stdint.h>
 
+#define FRQ_CNT_SAMPLES 8
+
+extern volatile uint16_t volumeInputBuffer[FRQ_CNT_SAMPLES];
+extern volatile uint16_t pitchInputBuffer[FRQ_CNT_SAMPLES];
+
 /** Init the platform */
 void platform_init(void);
 

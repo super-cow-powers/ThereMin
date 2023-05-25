@@ -58,12 +58,45 @@ static void _configureDacDMA(void) {
   DMA1_Channel3->CCR |= 0b1 << DMA_CCR_EN_Pos; //Enable Channel
 }
 
+static void _configureTim3DMA(void) {
+  //Volume Timer DMA
+  DMA1_Channel6->CCR |= 0b01 << DMA_CCR_PL_Pos; //Medium Priority
+  DMA1_Channel6->CCR |= 0b01 << DMA_CCR_MSIZE_Pos; //16 Bit data (memory)
+  DMA1_Channel6->CCR |= 0b01 << DMA_CCR_PSIZE_Pos; //16 Bit data (peripheral)
+  DMA1_Channel6->CCR |= 0b1 << DMA_CCR_MINC_Pos; //Auto-increment memory position
+  DMA1_Channel6->CCR |= 0b1 << DMA_CCR_CIRC_Pos; //Circular buffer mode
+  DMA1_Channel6->CCR |= 0b1 << DMA_CCR_TCIE_Pos; //Transfer Complete IRQ Enable
+  DMA1_Channel6->CCR &= ~(0b1 << DMA_CCR_DIR_Pos); //Read from peripheral to memory
+  DMA1_Channel6->CNDTR = FRQ_CNT_SAMPLES; //Set length of data buffer
+  DMA1_Channel6->CPAR = (uint32_t)(&(TIM3->CCR1)); //Data from Timer CCR1 output
+  DMA1_Channel6->CMAR = (uint32_t)((uint16_t*)volumeInputBuffer); //Data to frequency Buffer
+  DMA1_Channel6->CCR |= 0b1 << DMA_CCR_EN_Pos; //Enable Channel
+}
+
+static void _configureTim2DMA(void) {
+  //Pitch Timer DMA
+  DMA1_Channel2->CCR |= 0b01 << DMA_CCR_PL_Pos; //Medium Priority
+  DMA1_Channel2->CCR |= 0b01 << DMA_CCR_MSIZE_Pos; //16 Bit data (memory)
+  DMA1_Channel2->CCR |= 0b01 << DMA_CCR_PSIZE_Pos; //16 Bit data (peripheral)
+  DMA1_Channel2->CCR |= 0b1 << DMA_CCR_MINC_Pos; //Auto-increment memory position
+  DMA1_Channel2->CCR |= 0b1 << DMA_CCR_CIRC_Pos; //Circular buffer mode
+  DMA1_Channel2->CCR |= 0b1 << DMA_CCR_TCIE_Pos; //Transfer Complete IRQ Enable
+  DMA1_Channel2->CCR &= ~(0b1 << DMA_CCR_DIR_Pos); //Read from peripheral to memory
+  DMA1_Channel2->CNDTR = FRQ_CNT_SAMPLES; //Set length of data buffer
+  DMA1_Channel2->CPAR = (uint32_t)(&(TIM2->CCR1)); //Data from Timer CCR1 output
+  DMA1_Channel2->CMAR = (uint32_t)((uint16_t*)pitchInputBuffer); //Data to frequency Buffer
+  DMA1_Channel2->CCR |= 0b1 << DMA_CCR_EN_Pos; //Enable Channel
+}
+
 /** Configure the DMA Engine */
 static void _configureDMA(void) {
   RCC->AHBRSTR |= RCC_AHBRSTR_DMA1RST;
   RCC->AHBRSTR &= ~RCC_AHBRSTR_DMA1RST;
   RCC->AHBENR |= RCC_AHBENR_DMA1EN; //Using DMA1
+  
   _configureDacDMA();
+  _configureTim3DMA();
+  _configureTim2DMA();
 }
 
 static void _configureDacTimer(void) {
@@ -75,7 +108,7 @@ static void _configureDacTimer(void) {
   TIM7->CR1 &= ~(TIM_CR1_ARPE | TIM_CR1_OPM | TIM_CR1_UDIS); //Auto-reload preload, multi-pulse mode, enable Update Event
   TIM7->CR1 |= 0b1 << TIM_CR1_URS;
   TIM7->DIER |= TIM_DIER_UDE_Msk; //Enable DMA Request on update
-  TIM7->ARR = 1000; //Start with Auto-reloading 2^16 -1
+  TIM7->ARR = 100; //Start with Auto-reloading 2^16 -1
   DBGMCU->APB1FZ |= DBGMCU_APB1_FZ_DBG_TIM7_STOP; //Freeze on breakpoint
 }
 
@@ -84,25 +117,38 @@ static void _configurePitchTimer(void) {
   RCC->APB1RSTR |= (RCC_APB1RSTR_TIM2RST);
   RCC->APB1RSTR &= ~(RCC_APB1RSTR_TIM2RST);
   RCC->APB1ENR |= (RCC_APB1ENR_TIM2EN);
-  TIM2->CR2 |= 0b1U << TIM_CR2_CCDS_Pos; //DMA on update event
+  TIM2->CR2 &= ~(0b1U << TIM_CR2_CCDS_Pos); //DMA on capture compare
+  DBGMCU->APB1FZ |= DBGMCU_APB1_FZ_DBG_TIM2_STOP; //Freeze on breakpoint
+
+  TIM2->CCMR1 |= 0b10 << TIM_CCMR1_CC1S_Pos; //Input 2 to CC1
+  TIM2->CCMR1 |= 0b0011 << TIM_CCMR1_IC1F_Pos; //8-cycle Filter
+  TIM2->SMCR |= 0b110 << TIM_SMCR_TS_Pos; //Timer Input 2 as Trigger
   TIM2->SMCR |= 0b100U << TIM_SMCR_SMS_Pos; //Slave Reset Mode
-  TIM2->DIER |= 1U << TIM_DIER_UDE_Pos; // DMA On Update
-  TIM2->CCMR1 |= 0b10 << TIM_CCMR1_CC1S_Pos; // CC1S to TI2
-  TIM2->CCER &= ~(TIM_CCER_CC1P | TIM_CCER_CC1NP); //Rising Edge
-  TIM2->CCMR1 |= 0b01 << TIM_CCMR1_CC2S_Pos; //CC2S to TI2
-  TIM2->CCER |= TIM_CCER_CC2P;
-  TIM2->CCER &= ~(TIM_CCER_CC2NP);
-  TIM2->SMCR |= 0b101 << TIM_SMCR_TS_Pos;
-  TIM2->CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E;
-  TIM2->CR1 |= 1U;
+  TIM2->CCER &= ~((0b1 << TIM_CCER_CC1P_Pos) | (0b1 << TIM_CCER_CC1NP_Pos)); //Rising Edge
+  TIM2->CCMR1 &= ~(0b11 << TIM_CCMR1_IC1PSC_Pos); //No Prescaler
+  TIM2->DIER |= 1U << TIM_DIER_UDE_Pos; //Enable DMA Request on Update. Get data out when registers update.
+  TIM2->CCER |= TIM_CCER_CC1E; //Enable CC1
+  TIM2->CR1 |= 1U; //Enable Timer
 }
 
 static void _configureVolumeTimer(void) {
   //Timer 3
+  
   RCC->APB1RSTR |= (RCC_APB1RSTR_TIM3RST);
   RCC->APB1RSTR &= ~(RCC_APB1RSTR_TIM3RST);
   RCC->APB1ENR |= (RCC_APB1ENR_TIM3EN);
-  
+  TIM3->CR2 &= ~(0b1U << TIM_CR2_CCDS_Pos); //DMA on capture compare
+  DBGMCU->APB1FZ |= DBGMCU_APB1_FZ_DBG_TIM3_STOP; //Freeze on breakpoint
+
+  TIM3->CCMR1 |= 0b01 << TIM_CCMR1_CC1S_Pos; //Input 1 to CC1
+  TIM3->CCMR1 |= 0b0011 << TIM_CCMR1_IC1F_Pos; //8-cycle Filter
+  TIM3->SMCR |= 0b101 << TIM_SMCR_TS_Pos; //Timer Input 1 as Trigger
+  TIM3->SMCR |= 0b100U << TIM_SMCR_SMS_Pos; //Slave Reset Mode
+  TIM3->CCER &= ~((0b1 << TIM_CCER_CC1P_Pos) | (0b1 << TIM_CCER_CC1NP_Pos));
+  TIM3->CCMR1 &= ~(0b11 << TIM_CCMR1_IC1PSC_Pos); //No Prescaler
+  TIM3->DIER |= 1U << TIM_DIER_CC1DE_Pos; //Enable DMA Request on CC1. Get data out when CC1 updates.
+  TIM3->CCER |= TIM_CCER_CC1E;
+  TIM3->CR1 |= 1U;
 }
 
 void configure_timers() {
@@ -137,9 +183,8 @@ void configure_gpio (void) {
   GPIOA->PUPDR |= (0b01 << (CAL_PIN*2));
 
   //Set AFs
-  GPIOA->AFR[0] |= 1U >> (PITCH_PIN * 4);
-  GPIOA->AFR[0] |= 0b11U >> (VOLUME_PIN * 4);
-  
+  GPIOA->AFR[0] |= 1U << (PITCH_PIN * 4);
+  GPIOA->AFR[0] |= 0b10U << (VOLUME_PIN * 4);
 }
 
 /** @brief Configures the NVIC with the used IRQs.

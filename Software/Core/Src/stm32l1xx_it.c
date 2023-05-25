@@ -18,7 +18,6 @@
 #include "stm32l1xx_it.h"
 #include <stdint.h>
 
-volatile uint32_t SYSTICK_VAL = 0;
 
 /******************************************************************************/
 /*           Cortex-M3 Processor Interruption and Exception Handlers          */
@@ -92,13 +91,5 @@ void DebugMon_Handler(void)
   */
 void PendSV_Handler(void)
 {
-}
-
-/**
-  * @brief This function handles System tick timer.
-  */
-void SysTick_Handler(void)
-{
-  SYSTICK_VAL ++;
 }
 

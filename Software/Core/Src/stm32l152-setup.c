@@ -54,8 +54,9 @@ static void _configureDacDMA(void) {
   DMA1_Channel3->CCR |= 0b1 << DMA_CCR_DIR_Pos; //Read from memory to peripheral
   DMA1_Channel3->CNDTR = SAMPLES_NUMBER; //Set length of data buffer
   DMA1_Channel3->CPAR = (uint32_t)(&(DAC->DHR12R1)); //Data to DAC output
-  DMA1_Channel3->CMAR = (uint32_t)((uint16_t*)WF_BUFFER); //Data from Waveform Buffer
+  DMA1_Channel3->CMAR = (uint32_t)((uint16_t*)ACTIVE_WF_BUF); //Data from Waveform Buffer
   DMA1_Channel3->CCR |= 0b1 << DMA_CCR_EN_Pos; //Enable Channel
+  DMA1_Channel3->CCR |= 0b1 << DMA_CCR_TCIE_Pos; //Transfer Complete IRQ Enable
 }
 
 static void _configureTim3DMA(void) {
@@ -105,10 +106,10 @@ static void _configureDacTimer(void) {
   RCC->APB1RSTR &= ~(RCC_APB1RSTR_TIM7RST);
   RCC->APB1ENR |= (RCC_APB1ENR_TIM7EN);
   TIM7->PSC = 0; //32MHz/(31+1) for 1MHz input gives 15Hz minimum output
-  TIM7->CR1 &= ~(TIM_CR1_ARPE | TIM_CR1_OPM | TIM_CR1_UDIS); //Auto-reload preload, multi-pulse mode, enable Update Event
+  TIM7->CR1 &= ~( TIM_CR1_OPM | TIM_CR1_UDIS); //Auto-reload preload, multi-pulse mode, enable Update Event
   TIM7->CR1 |= 0b1 << TIM_CR1_URS;
   TIM7->DIER |= TIM_DIER_UDE_Msk; //Enable DMA Request on update
-  TIM7->ARR = 100; //Start with Auto-reloading 2^16 -1
+  TIM7->ARR = INITIAL_DAC_ARR;
   DBGMCU->APB1FZ |= DBGMCU_APB1_FZ_DBG_TIM7_STOP; //Freeze on breakpoint
 }
 
@@ -166,7 +167,7 @@ void configure_dac() {
 }
 
 void start_output() {
-  memcpy((uint16_t*)WF_BUFFER, SINE_WF, SAMPLES_NUMBER*sizeof(uint16_t)); //Place Sine into output buffer
+  memcpy((uint16_t*)ACTIVE_WF_BUF, SINE_WF, SAMPLES_NUMBER*sizeof(uint16_t)); //Place Sine into output buffer
   TIM7->CR1 |= 0b1;
 }
 
@@ -195,6 +196,15 @@ _configIRQs (void)
   
 }
 
+void offsetDacTimer(int32_t offset) {
+  int32_t val = INITIAL_DAC_ARR + offset;
+  if (val < 10) {
+    val = 10;
+  } else if (val >= UINT16_MAX) {
+    val = UINT16_MAX;
+  }
+  TIM7->ARR = (uint16_t)val;
+}
 
 void
 enable_tick ()

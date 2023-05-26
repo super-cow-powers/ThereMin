@@ -5,6 +5,8 @@
 #include "waveform.h"
 #include <stdint.h>
 
+#define VOL_SCALE_MIN 150
+
 volatile uint32_t SYSTICK_VAL = 0;
 
 // DAC on PA4
@@ -17,11 +19,20 @@ static volatile DMA_Channel_TypeDef* dacDma = DMA1_Channel3;
 
 volatile uint16_t volumeInputBuffer[FRQ_CNT_SAMPLES];
 volatile uint16_t pitchInputBuffer[FRQ_CNT_SAMPLES];
+
+volatile uint16_t WF_BUFF_1[SAMPLES_NUMBER];
+volatile uint16_t WF_BUFF_2[SAMPLES_NUMBER];
+
+volatile uint16_t *ACTIVE_WF_BUF;
+volatile uint16_t const *ACTIVE_WF_SRC;
+
 volatile uint16_t volumeInputMean;
 volatile uint16_t pitchInputMean;
 
 volatile uint16_t volumeCal;
 volatile uint16_t pitchCal;
+
+
 
 /**
   * @brief  The application entry point.
@@ -29,7 +40,9 @@ volatile uint16_t pitchCal;
   */
 int main(void)
 {
-  
+  int32_t volumeScale;
+  ACTIVE_WF_SRC = SINE_WF;
+  ACTIVE_WF_BUF = (uint16_t*)WF_BUFF_1;
   platform_init();
   start_output();
   //NVIC_EnableIRQ(TIM7_IRQn);
@@ -37,20 +50,22 @@ int main(void)
   NVIC_EnableIRQ(TIM3_IRQn);
   NVIC_EnableIRQ(DMA1_Channel6_IRQn);
   NVIC_EnableIRQ(DMA1_Channel2_IRQn);
+  NVIC_EnableIRQ(DMA1_Channel3_IRQn);
   for (uint32_t i = 0; i<3*UINT16_MAX; i++) {
 
   }
   volumeCal = volumeInputMean;
   pitchCal = pitchInputMean;
-  int32_t volumeScale;
-  int32_t pitchScale;
   while (1) {
-    //Try leaving pitch-scaling as-is?
-    pitchScale = pitchInputMean - pitchCal;
-    
-    
-    volumeScale = volumeCal - volumeInputMean;
-    //Calculate scaled number by multiplying 
+    //Calculate scaled number by multiplying
+    volumeScale = (volumeInputMean - volumeCal) ;
+    if (volumeScale <= 0) volumeScale = 1;
+    /*for (uint32_t i = 0; i<SAMPLES_NUMBER; i++) {
+      int32_t noDC = (ACTIVE_WF_SRC[i] - MIDPOINT)*100000;
+      int32_t noDcScaled = (noDC / (volumeScale))/100000;
+      noDcScaled += MIDPOINT;
+      ACTIVE_WF_BUF[i] =  (uint16_t)noDcScaled;
+      }*/
   }
 }
 
@@ -73,6 +88,16 @@ void DMA1_Channel6_IRQHandler () {
       count += volumeInputBuffer[i];
     }
     volumeInputMean = count >> 3; //Divide by 8
+  }
+}
+
+void DMA1_Channel3_IRQHandler () {
+  if (DMA1->ISR & 1U << DMA_ISR_TCIF3_Pos) {
+    DMA1->IFCR |= 1U << DMA_IFCR_CTCIF3_Pos;
+    //Try leaving pitch-scaling as-is?
+    int32_t pitchScale = (pitchInputMean - pitchCal) * 4;
+    offsetDacTimer(-pitchScale); //Apply in TCIRQ for synch
+    
   }
 }
 

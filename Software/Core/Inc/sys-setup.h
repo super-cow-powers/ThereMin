@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #define FRQ_CNT_SAMPLES 8
+#define INITIAL_DAC_ARR 1000
 
 extern volatile uint16_t volumeInputBuffer[FRQ_CNT_SAMPLES];
 extern volatile uint16_t pitchInputBuffer[FRQ_CNT_SAMPLES];
@@ -24,5 +25,8 @@ void start_output(void);
 
 /** Configure the DAC */
 void configure_dac(void);
+
+/** Offset the DAC Timer from the initial time-base */
+void offsetDacTimer(int32_t offset);
 
 #endif

@@ -2669,7 +2669,7 @@
     (property "Reference" "C16" (id 0) (at 210.82 60.9599 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Value" ".1u" (id 1) (at 210.82 63.4999 0)
+    (property "Value" "DNF" (id 1) (at 210.82 63.4999 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Footprint" "Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm" (id 2) (at 206.0448 58.42 0)
@@ -3335,7 +3335,7 @@
       (reference "C15") (unit 1) (value "10n") (footprint "Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm")
     )
     (path "/a4ace387-70f8-4069-9f07-d44c5428eaee"
-      (reference "C16") (unit 1) (value ".1u") (footprint "Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm")
+      (reference "C16") (unit 1) (value "DNF") (footprint "Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm")
     )
     (path "/e6eddaa6-98a5-4d64-9567-cf47a7106bdb"
       (reference "D1") (unit 1) (value "LED") (footprint "LED_THT:LED_D5.0mm")

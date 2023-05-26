@@ -42,8 +42,15 @@ int main(void)
   }
   volumeCal = volumeInputMean;
   pitchCal = pitchInputMean;
+  int32_t volumeScale;
+  int32_t pitchScale;
   while (1) {
+    //Try leaving pitch-scaling as-is?
+    pitchScale = pitchInputMean - pitchCal;
     
+    
+    volumeScale = volumeCal - volumeInputMean;
+    //Calculate scaled number by multiplying 
   }
 }
 
@@ -101,7 +108,5 @@ void TIM7_IRQHandler() {
 void SysTick_Handler(void)
 {
   SYSTICK_VAL ++;
-  int32_t volumeScale = volumeInputMean - volumeCal;
-  int32_t pitchScale = pitchInputMean - pitchCal;
 }
 

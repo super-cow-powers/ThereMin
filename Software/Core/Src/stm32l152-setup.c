@@ -68,7 +68,7 @@ static void _configureTim3DMA(void) {
   DMA1_Channel6->CCR |= 0b1 << DMA_CCR_CIRC_Pos; //Circular buffer mode
   DMA1_Channel6->CCR |= 0b1 << DMA_CCR_TCIE_Pos; //Transfer Complete IRQ Enable
   DMA1_Channel6->CCR &= ~(0b1 << DMA_CCR_DIR_Pos); //Read from peripheral to memory
-  DMA1_Channel6->CNDTR = FRQ_CNT_SAMPLES; //Set length of data buffer
+  DMA1_Channel6->CNDTR = VOL_CNT_SAMPLES; //Set length of data buffer
   DMA1_Channel6->CPAR = (uint32_t)(&(TIM3->CCR1)); //Data from Timer CCR1 output
   DMA1_Channel6->CMAR = (uint32_t)((uint16_t*)volumeInputBuffer); //Data to frequency Buffer
   DMA1_Channel6->CCR |= 0b1 << DMA_CCR_EN_Pos; //Enable Channel

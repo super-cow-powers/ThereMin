@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #define FRQ_CNT_SAMPLES 8
+#define VOL_CNT_SAMPLES 64
 #define INITIAL_DAC_ARR 1000
 
 extern volatile uint16_t volumeInputBuffer[FRQ_CNT_SAMPLES];

@@ -77,7 +77,7 @@ int main(void)
 	INACTIVE_WF_BUF[i] =  (uint16_t)noDcScaled;
       }
       WF_PROC_DONE = 1;
-    }
+      }
     //volumeScale = 3;
   }
 }
@@ -89,7 +89,7 @@ void DMA1_Channel2_IRQHandler () {
     for (uint8_t i = 0; i<FRQ_CNT_SAMPLES; i++) {
       count += pitchInputBuffer[i];
     }
-    pitchInputMean = count >> 3; //Divide by 8
+    pitchInputMean = count >> 6; //Divide by 64
   }
 }
 
@@ -100,7 +100,7 @@ void DMA1_Channel6_IRQHandler () {
     for (uint8_t i = 0; i<VOL_CNT_SAMPLES; i++) {
       count += volumeInputBuffer[i];
     }
-    volumeInputMean = count >> 6; //Divide by 8
+    volumeInputMean = count >> 6; //Divide by 64
   }
 }
 
@@ -113,9 +113,9 @@ void DMA1_Channel3_IRQHandler () {
       ACTIVE_WF_BUF = INACTIVE_WF_BUF;
       INACTIVE_WF_BUF = tempWfBuf;
       WF_PROC_DONE = 0;
-    }
+      }
     //Try leaving pitch-scaling as-is?
-    int32_t pitchScale = (pitchInputMean - pitchCal) * 4;
+    int32_t pitchScale = ((pitchInputMean - pitchCal))/2;
     offsetDacTimer(-pitchScale); //Apply in TCIRQ for synch
   }
 }

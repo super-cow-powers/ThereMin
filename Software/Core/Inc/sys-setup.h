@@ -2,7 +2,7 @@
 #define SYSSETUP_h
 #include <stdint.h>
 
-#define FRQ_CNT_SAMPLES 8
+#define FRQ_CNT_SAMPLES 64
 #define VOL_CNT_SAMPLES 64
 #define INITIAL_DAC_ARR 1000
 

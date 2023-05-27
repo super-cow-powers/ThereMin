@@ -198,8 +198,8 @@ _configIRQs (void)
 
 void offsetDacTimer(int32_t offset) {
   int32_t val = INITIAL_DAC_ARR + offset;
-  if (val < 10) {
-    val = 10;
+  if (val < 1) {
+    val = 1;
   } else if (val >= UINT16_MAX) {
     val = UINT16_MAX;
   }

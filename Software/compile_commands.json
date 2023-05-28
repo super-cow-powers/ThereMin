@@ -73,5 +73,81 @@
     "directory": "/home/david/ThereMin/Software",
     "file": "/home/david/ThereMin/Software/Core/Src/stm32l152-setup.c",
     "output": "/home/david/ThereMin/Software/build/stm32l152-setup.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/arm-none-eabi-gcc",
+      "-c",
+      "-mcpu=cortex-m3",
+      "-mthumb",
+      "-DSTM32L152xE",
+      "-ICore/Inc",
+      "-IDrivers/CMSIS/Device/ST/STM32L1xx/Include",
+      "-IDrivers/CMSIS/Include",
+      "-Og",
+      "-Wall",
+      "-fdata-sections",
+      "-ffunction-sections",
+      "-g",
+      "-gdwarf-2",
+      "-Wa,-a,-ad,-alms=build/stm32l1xx_it.lst",
+      "-o",
+      "build/stm32l1xx_it.o",
+      "Core/Src/stm32l1xx_it.c"
+    ],
+    "directory": "/home/david/ThereMin/Software",
+    "file": "/home/david/ThereMin/Software/Core/Src/stm32l1xx_it.c",
+    "output": "/home/david/ThereMin/Software/build/stm32l1xx_it.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/arm-none-eabi-gcc",
+      "-c",
+      "-mcpu=cortex-m3",
+      "-mthumb",
+      "-DSTM32L152xE",
+      "-ICore/Inc",
+      "-IDrivers/CMSIS/Device/ST/STM32L1xx/Include",
+      "-IDrivers/CMSIS/Include",
+      "-Og",
+      "-Wall",
+      "-fdata-sections",
+      "-ffunction-sections",
+      "-g",
+      "-gdwarf-2",
+      "-Wa,-a,-ad,-alms=build/system_stm32l1xx.lst",
+      "-o",
+      "build/system_stm32l1xx.o",
+      "Core/Src/system_stm32l1xx.c"
+    ],
+    "directory": "/home/david/ThereMin/Software",
+    "file": "/home/david/ThereMin/Software/Core/Src/system_stm32l1xx.c",
+    "output": "/home/david/ThereMin/Software/build/system_stm32l1xx.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/arm-none-eabi-gcc",
+      "-x",
+      "assembler-with-cpp",
+      "-c",
+      "-mcpu=cortex-m3",
+      "-mthumb",
+      "-DSTM32L152xE",
+      "-ICore/Inc",
+      "-IDrivers/CMSIS/Device/ST/STM32L1xx/Include",
+      "-IDrivers/CMSIS/Include",
+      "-Og",
+      "-Wall",
+      "-fdata-sections",
+      "-ffunction-sections",
+      "-g",
+      "-gdwarf-2",
+      "-o",
+      "build/startup_stm32l152xe.o",
+      "startup_stm32l152xe.s"
+    ],
+    "directory": "/home/david/ThereMin/Software",
+    "file": "/home/david/ThereMin/Software/startup_stm32l152xe.s",
+    "output": "/home/david/ThereMin/Software/build/startup_stm32l152xe.o"
   }
 ]

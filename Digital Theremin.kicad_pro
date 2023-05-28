@@ -89,7 +89,7 @@
         "tracks_crossing": "error",
         "unconnected_items": "error",
         "unresolved_variable": "error",
-        "via_dangling": "warning",
+        "via_dangling": "ignore",
         "zone_has_empty_net": "error",
         "zones_intersect": "error"
       },

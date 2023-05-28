@@ -2,11 +2,11 @@
 #define SYSSETUP_h
 #include <stdint.h>
 
-#define FRQ_CNT_SAMPLES 64
+#define FRQ_CNT_SAMPLES 32
 #define VOL_CNT_SAMPLES 64
 #define INITIAL_DAC_ARR 1000
 
-extern volatile uint16_t volumeInputBuffer[FRQ_CNT_SAMPLES];
+extern volatile uint16_t volumeInputBuffer[VOL_CNT_SAMPLES];
 extern volatile uint16_t pitchInputBuffer[FRQ_CNT_SAMPLES];
 
 /** Init the platform */

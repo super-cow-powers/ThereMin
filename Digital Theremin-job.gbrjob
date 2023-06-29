@@ -5,17 +5,17 @@
       "Application": "Pcbnew",
       "Version": "(6.0.11)"
     },
-    "CreationDate": "2023-05-30T10:33:30+01:00"
+    "CreationDate": "2023-06-06T17:09:24+01:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "tda2822 board",
-      "GUID": "74646132-3832-4322-9062-6f6172642e6b",
+      "Name": "Digital Theremin",
+      "GUID": "44696769-7461-46c2-9054-686572656d69",
       "Revision": "rev?"
     },
     "Size": {
-      "X": 38.6,
-      "Y": 23.6
+      "X": 100.1,
+      "Y": 63.1
     },
     "LayerNumber": 2,
     "BoardThickness": 1.6,
@@ -28,53 +28,53 @@
       "PadToTrack": 0.2,
       "TrackToTrack": 0.2,
       "MinLineWidth": 0.25,
-      "TrackToRegion": 0.508,
-      "RegionToRegion": 0.508
+      "TrackToRegion": 0.256,
+      "RegionToRegion": 0.256
     }
   ],
   "FilesAttributes": [
     {
-      "Path": "tda2822 board-F_Cu.gbr",
+      "Path": "Digital Theremin-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tda2822 board-B_Cu.gbr",
+      "Path": "Digital Theremin-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tda2822 board-F_Paste.gbr",
+      "Path": "Digital Theremin-F_Paste.gbr",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tda2822 board-B_Paste.gbr",
+      "Path": "Digital Theremin-B_Paste.gbr",
       "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tda2822 board-F_Silkscreen.gbr",
+      "Path": "Digital Theremin-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tda2822 board-B_Silkscreen.gbr",
+      "Path": "Digital Theremin-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "tda2822 board-F_Mask.gbr",
+      "Path": "Digital Theremin-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "tda2822 board-B_Mask.gbr",
+      "Path": "Digital Theremin-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "tda2822 board-Edge_Cuts.gbr",
+      "Path": "Digital Theremin-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }

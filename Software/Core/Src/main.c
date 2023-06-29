@@ -48,6 +48,9 @@ volatile uint16_t pitchCal;
   */
 int main(void)
 {
+  int16_t lastPitchOs = 0;
+  int16_t pitchOS = 0;
+  int8_t pitchOsSign;
   WF_PROC_DONE = 0;
   ACTIVE_WF_SRC = SINE_WF;
   ACTIVE_WF_BUF = (uint16_t*)WF_BUFF_1;
@@ -75,14 +78,19 @@ int main(void)
       }
       volumeScale += 100;
       //Try leaving pitch-scaling as-is?
-      int16_t pitchOS = pitchInputMean - pitchCal;
-      if (pitchOS < 1) {
+      pitchOS = pitchInputMean - pitchCal;
+      lastPitchOs = pitchOS;
+      pitchOsSign = 1;
+      if (pitchOS < 0) {
+	pitchOsSign = -1;
 	pitchOS = 1;
-      } else if (pitchOS > 999) {
-	pitchOS = 999;
+      } else if (pitchOS == 0) {
+	pitchOsSign = 0;
       }
-      //pitchScale = (int32_t)(10*log(pitchOS));
-      pitchScale = ((logTable[(pitchOS)]));
+      
+      //pitchScale = (int32_t)((double)(30*log(pitchOS*50)));
+      pitchScale = pitchOS*1.3;
+      //pitchScale *= pitchOsSign;
       
       for (uint32_t i = 0; i<SAMPLES_NUMBER; i++) {
 	int32_t noDC = (ACTIVE_WF_SRC[i] - MIDPOINT);

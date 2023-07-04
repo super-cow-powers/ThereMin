@@ -1,8 +1,10 @@
 */*auto*
 *backups/
-Software/build/*
 Software/.cache/*
+*.d
+*.lst
+*.map
+*.hex
 *.o
-*.elf
-*.bin
 *~
+Software/compile_commands.json

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="E">
   <design>
-    <source>/home/david/Documents/Digital Theremin/Digital Theremin.kicad_sch</source>
-    <date>Wed 07 Jun 2023 20:46:15 BST</date>
-    <tool>Eeschema (6.0.11)</tool>
+    <source>/home/david/ThereMin/PCB/Digital Theremin.kicad_sch</source>
+    <date>Tue 04 Jul 2023 15:31:06 BST</date>
+    <tool>Eeschema 6.0.11-3.fc37</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title/>
@@ -207,7 +207,7 @@
       <tstamps>a4ace387-70f8-4069-9f07-d44c5428eaee</tstamps>
     </comp>
     <comp ref="D1">
-      <value>LED</value>
+      <value>DNF</value>
       <footprint>LED_THT:LED_D5.0mm</footprint>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <property name="Sheetname" value=""/>
@@ -216,7 +216,7 @@
       <tstamps>e6eddaa6-98a5-4d64-9567-cf47a7106bdb</tstamps>
     </comp>
     <comp ref="D2">
-      <value>LED</value>
+      <value>DNF</value>
       <footprint>LED_THT:LED_D5.0mm</footprint>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <property name="Sheetname" value=""/>
@@ -225,7 +225,7 @@
       <tstamps>07efeeb9-dd24-4559-bd59-4fa07c46e1be</tstamps>
     </comp>
     <comp ref="D3">
-      <value>LED</value>
+      <value>DNF</value>
       <footprint>LED_THT:LED_D5.0mm</footprint>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
       <property name="Sheetname" value=""/>
@@ -319,7 +319,7 @@
       <tstamps>5f63f198-0dda-4443-b537-95daa414b2dd</tstamps>
     </comp>
     <comp ref="R1">
-      <value>220</value>
+      <value>DNF</value>
       <footprint>Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
@@ -328,7 +328,7 @@
       <tstamps>74792002-d4fe-413e-9baa-acc75935710c</tstamps>
     </comp>
     <comp ref="R2">
-      <value>220</value>
+      <value>DNF</value>
       <footprint>Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
@@ -337,7 +337,7 @@
       <tstamps>f0af6990-88da-450d-986d-45d2dcd4e23d</tstamps>
     </comp>
     <comp ref="R3">
-      <value>220</value>
+      <value>DNF</value>
       <footprint>Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
@@ -346,7 +346,7 @@
       <tstamps>44b485b0-4dc3-47db-9bbe-603cebbf58cf</tstamps>
     </comp>
     <comp ref="R4">
-      <value>220</value>
+      <value>DNF</value>
       <footprint>Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
@@ -373,7 +373,7 @@
       <tstamps>2a10248d-4835-4abf-88ba-63e8b1f5691c</tstamps>
     </comp>
     <comp ref="RV1">
-      <value>10k</value>
+      <value>DNF</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
       <libsource lib="Device" part="R_Potentiometer" description="Potentiometer"/>
       <property name="Sheetname" value=""/>
@@ -400,7 +400,7 @@
       <tstamps>0cdb06f6-0e9d-432f-ad96-fcf9f6792858</tstamps>
     </comp>
     <comp ref="SW1">
-      <value>SW_Push</value>
+      <value>DNF</value>
       <footprint>Button_Switch_THT:SW_PUSH_6mm</footprint>
       <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
       <property name="Sheetname" value=""/>
@@ -409,7 +409,7 @@
       <tstamps>43d7322f-dfb7-4a28-af3b-3eb60d54024c</tstamps>
     </comp>
     <comp ref="SW2">
-      <value>SW_Push</value>
+      <value>DNF</value>
       <footprint>Button_Switch_THT:SW_PUSH_6mm</footprint>
       <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
       <property name="Sheetname" value=""/>
@@ -1083,7 +1083,7 @@
       <uri>/usr/share/kicad/symbols//Timer.kicad_sym</uri>
     </library>
     <library logical="project_lib">
-      <uri>/home/david/Documents/Digital Theremin/project_lib.kicad_sym</uri>
+      <uri>/home/david/ThereMin/PCB/project_lib.kicad_sym</uri>
     </library>
   </libraries>
   <nets>

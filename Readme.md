@@ -1,7 +1,7 @@
 ### ThereMin()
 Minimal Digital Theremin, based on a pair of NE555p timers and an STM32G0.
 
-[Completed Device](./device.jpg)
+![Completed Device](./device.jpg)
 
 ## Theory of Operation
 The device uses a pair of 555 timers to translate hand-position to frequency, which is measured by the STM32 and then used to modify a generated sine wave.

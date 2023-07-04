@@ -1,4 +1,7 @@
 target extended-remote localhost:3333
+refresh
+monitor halt
+
 define c 
   continue
   refresh

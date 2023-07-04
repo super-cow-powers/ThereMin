@@ -1,6 +1,14 @@
 #include "main.h"
+#include "stm32g051xx.h"
+
+#if defined(STM32L152xE)
 #include "stm32l152xe.h"
 #include "stm32l1xx_it.h"
+#elif defined(STM32G051xx)
+#include "stm32g0xx.h"
+#include "stm32g0xx_it.h"
+#endif
+
 #include "sys-setup.h"
 #include "waveform.h"
 #include <math.h>
@@ -12,14 +20,15 @@ const uint16_t logTable[1000] = {0,50,79,100,116,129,140,150,158,166,173,179,185
 };
 
 volatile uint32_t SYSTICK_VAL = 0;
-
-// DAC on PA4
-static volatile TIM_TypeDef *tim = TIM7;
-static volatile TIM_TypeDef *tim2 = TIM2;
-static volatile TIM_TypeDef *tim3 = TIM3;
-
 static volatile DAC_TypeDef *dac = DAC;
-static volatile DMA_Channel_TypeDef* dacDma = DMA1_Channel3;
+static volatile DMA_Channel_TypeDef *dacDma  = DMA1_Channel1;
+static volatile DMAMUX_Channel_TypeDef *dacDmaMux = DMAMUX1_Channel0;
+
+static volatile DMA_TypeDef *dma = DMA1;
+
+static volatile TIM_TypeDef *tim1 = TIM1;
+static volatile TIM_TypeDef *tim3 = TIM3;
+static volatile TIM_TypeDef *tim15 = TIM15;
 
 volatile uint16_t volumeInputBuffer[VOL_CNT_SAMPLES];
 volatile uint16_t pitchInputBuffer[FRQ_CNT_SAMPLES];
@@ -57,19 +66,14 @@ int main(void)
   INACTIVE_WF_BUF = (uint16_t*)WF_BUFF_2;
   platform_init();
   start_output();
-  //NVIC_EnableIRQ(TIM7_IRQn);
-  //NVIC_EnableIRQ(TIM2_IRQn);
-  NVIC_EnableIRQ(TIM3_IRQn);
-  NVIC_EnableIRQ(DMA1_Channel6_IRQn);
-  NVIC_EnableIRQ(DMA1_Channel2_IRQn);
-  NVIC_EnableIRQ(DMA1_Channel3_IRQn);
+
   for (uint32_t i = 0; i<3*UINT16_MAX; i++) {
 
   }
   volumeCal = volumeInputMean;
   pitchCal = pitchInputMean;
+  
   while (1) {
-
     if (!WF_PROC_DONE){
       //Calculate scaled number by multiplying
       volumeScale = (volumeInputMean - volumeCal);
@@ -79,23 +83,25 @@ int main(void)
       volumeScale += 100;
       //Try leaving pitch-scaling as-is?
       pitchOS = pitchInputMean - pitchCal;
-      lastPitchOs = pitchOS;
-      pitchOsSign = 1;
-      if (pitchOS < 0) {
-	pitchOsSign = -1;
-	pitchOS = 1;
-      } else if (pitchOS == 0) {
-	pitchOsSign = 0;
-      }
       
-      //pitchScale = (int32_t)((double)(30*log(pitchOS*50)));
-      pitchScale = pitchOS*1.3;
+      //pitchScale = (int32_t)((double)(2*log((double)pitchOS)));
+      pitchScale = pitchOS * 10 *exp(-0.0008*pitchOS);
+      if (pitchScale < 0) pitchScale = 0;
+      //pitchScale = pitchOS*2;
       //pitchScale *= pitchOsSign;
       
       for (uint32_t i = 0; i<SAMPLES_NUMBER; i++) {
 	int32_t noDC = (ACTIVE_WF_SRC[i] - MIDPOINT);
-	int32_t noDcScaled = ((noDC*10000) / (volumeScale))/100;
+	int32_t noDcScaled = (noDC*1000) / (volumeScale*10);
+	if (volumeScale > 1000) {
+	  noDcScaled = 0;
+	}
 	noDcScaled += MIDPOINT;
+	if (noDcScaled > 4095) {
+	  noDcScaled = 4095;
+	}
+	
+	
 	INACTIVE_WF_BUF[i] =  (uint16_t)noDcScaled;
       }
       WF_PROC_DONE = 1;
@@ -104,31 +110,33 @@ int main(void)
   }
 }
 
-void DMA1_Channel2_IRQHandler () {
+//Pitch/Volume transfer done
+void DMA1_Channel2_3_IRQHandler () {
   uint32_t count = 0;
-  if (DMA1->ISR & 1U << DMA_ISR_TCIF2_Pos) {
-    DMA1->IFCR |= 1U << DMA_IFCR_CTCIF2_Pos;
+  if (DMA1->ISR & 1U << DMA_ISR_TCIF2_Pos) { //Pitch transfer done
+    DMA1->IFCR |= (1U << DMA_IFCR_CTCIF2_Pos) | (1U << DMA_IFCR_CGIF2_Pos);
     for (uint16_t i = 0; i<FRQ_CNT_SAMPLES; i++) {
       count += pitchInputBuffer[i];
     }
-    pitchInputMean = count >> 5; //Divide by 32
+    pitchInputMean = count/FRQ_CNT_SAMPLES; //Divide by 32
   }
 }
 
-void DMA1_Channel6_IRQHandler () {
+void DMA1_Ch4_7_DMAMUX1_OVR_IRQHandler() {
   uint32_t count = 0;
-  if (DMA1->ISR & 1U << DMA_ISR_TCIF6_Pos) {
-    DMA1->IFCR |= 1U << DMA_IFCR_CTCIF6_Pos;
+  if (DMA1->ISR & 1U << DMA_ISR_TCIF4_Pos) { //Volume transfer done
+    DMA1->IFCR |= (1U << DMA_IFCR_CTCIF4_Pos) | (1U << DMA_IFCR_CGIF4_Pos);
     for (uint8_t i = 0; i<VOL_CNT_SAMPLES; i++) {
       count += volumeInputBuffer[i];
     }
-    volumeInputMean = count >> 6; //Divide by 64
+    volumeInputMean = count/VOL_CNT_SAMPLES; //Divide by 64
   }
 }
 
-void DMA1_Channel3_IRQHandler () {
-  if (DMA1->ISR & 1U << DMA_ISR_TCIF3_Pos) {
-    DMA1->IFCR |= 1U << DMA_IFCR_CTCIF3_Pos;
+//Wave transfer done
+void DMA1_Channel1_IRQHandler () {
+  if (DMA1->ISR & 1U << DMA_ISR_TCIF1_Pos) {
+    DMA1->IFCR |= 1U << DMA_IFCR_CTCIF1_Pos;
     if (WF_PROC_DONE) {
       DMA1_Channel3->CMAR = (uint32_t)((uint16_t*)INACTIVE_WF_BUF);
       uint16_t* tempWfBuf = (uint16_t*)ACTIVE_WF_BUF;
@@ -140,31 +148,6 @@ void DMA1_Channel3_IRQHandler () {
   }
 }
 
-void TIM2_IRQHandler() {
-  //__asm("BKPT");
-  if (TIM2->SR) {
-    TIM2->SR = 0;
-    NVIC_ClearPendingIRQ(TIM2_IRQn);
-  }
-}
-
-void TIM3_IRQHandler() {
-  if (TIM3->CCR1) {
-    //__asm("BKPT");
-  }
-  if (TIM3->SR) {
-    TIM3->SR = 0;
-    NVIC_ClearPendingIRQ(TIM3_IRQn);
-  }
-}
-
-void TIM7_IRQHandler() {
-  //__asm("BKPT");
-  if (TIM7->SR) {
-    TIM7->SR = 0;
-    NVIC_ClearPendingIRQ(TIM7_IRQn);
-  }
-}
 
 /**
   * @brief This function handles System tick timer.

@@ -16,7 +16,34 @@
   */
 #include "main.h"
 #include "stm32l1xx_it.h"
+#include "stm32l1xx.h"
 #include <stdint.h>
+
+void TIM2_IRQHandler() {
+  //__asm("BKPT");
+  if (TIM2->SR) {
+    TIM2->SR = 0;
+    NVIC_ClearPendingIRQ(TIM2_IRQn);
+  }
+}
+
+void TIM3_IRQHandler() {
+  if (TIM3->CCR1) {
+    //__asm("BKPT");
+  }
+  if (TIM3->SR) {
+    TIM3->SR = 0;
+    NVIC_ClearPendingIRQ(TIM3_IRQn);
+  }
+}
+
+void TIM7_IRQHandler() {
+  //__asm("BKPT");
+  if (TIM7->SR) {
+    TIM7->SR = 0;
+    NVIC_ClearPendingIRQ(TIM7_IRQn);
+  }
+}
 
 
 /******************************************************************************/

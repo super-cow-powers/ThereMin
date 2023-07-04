@@ -15,6 +15,7 @@
 ######################################
 TARGET = ThereMin
 
+device = g0
 
 ######################################
 # building variables
@@ -37,14 +38,46 @@ BUILD_DIR = build
 # C sources
 C_SOURCES =  \
 Core/Src/main.c \
-Core/Src/waveform.c \
+Core/Src/waveform.c
+
+# C includes
+C_INCLUDES =  \
+-ICore/Inc \
+-IDrivers/CMSIS/Include
+
+#Device Dependant things
+ifeq ($(device), l152)
+C_SOURCES += \
 Core/Src/stm32l152-setup.c \
 Core/Src/stm32l1xx_it.c \
-Core/Src/system_stm32l1xx.c  
-
+Core/Src/system_stm32l1xx.c
+C_INCLUDES += -IDrivers/CMSIS/Device/ST/STM32L1xx/Include
+# cpu
+CPU = -mcpu=cortex-m3
 # ASM sources
-ASM_SOURCES =  \
-startup_stm32l152xe.s
+ASM_SOURCES = startup_stm32l152xe.s
+# C defines
+C_DEFS =  \
+-DSTM32L152xE
+# link script
+LDSCRIPT = STM32L152RETx_FLASH.ld
+else
+C_SOURCES += \
+Core/Src/stm32g051-setup.c \
+Core/Src/stm32g0xx_it.c \
+Core/Src/system_stm32g051.c
+C_INCLUDES += -IDrivers/CMSIS/Device/ST/STM32G0xx/Include
+# cpu
+CPU = -mcpu=cortex-m0
+# ASM sources
+ASM_SOURCES = startup_stm32g051xx.s
+# C defines
+C_DEFS =  \
+-DSTM32G051xx
+# link script
+LDSCRIPT = STM32G051K8Tx_FLASH.ld
+endif
+
 
 
 #######################################
@@ -70,14 +103,6 @@ BIN = $(CP) -O binary -S
 #######################################
 # CFLAGS
 #######################################
-# cpu
-CPU = -mcpu=cortex-m3
-
-# fpu
-# NONE for Cortex-M0/M0+/M3
-
-# float-abi
-
 
 # mcu
 MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
@@ -86,19 +111,9 @@ MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 # AS defines
 AS_DEFS = 
 
-# C defines
-C_DEFS =  \
--DSTM32L152xE
-
 
 # AS includes
 AS_INCLUDES = 
-
-# C includes
-C_INCLUDES =  \
--ICore/Inc \
--IDrivers/CMSIS/Device/ST/STM32L1xx/Include \
--IDrivers/CMSIS/Include
 
 
 # compile gcc flags
@@ -118,8 +133,6 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)" -lm
 #######################################
 # LDFLAGS
 #######################################
-# link script
-LDSCRIPT = STM32L152RETx_FLASH.ld
 
 # libraries
 LIBS = -lc -lm -lnosys 

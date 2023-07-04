@@ -1,14 +1,14 @@
 [
   {
     "arguments": [
-      "/usr/sbin/arm-none-eabi-gcc",
+      "/usr/lib64/ccache/arm-none-eabi-gcc",
       "-c",
-      "-mcpu=cortex-m3",
+      "-mcpu=cortex-m0",
       "-mthumb",
-      "-DSTM32L152xE",
+      "-DSTM32G051xx",
       "-ICore/Inc",
-      "-IDrivers/CMSIS/Device/ST/STM32L1xx/Include",
       "-IDrivers/CMSIS/Include",
+      "-IDrivers/CMSIS/Device/ST/STM32G0xx/Include",
       "-Og",
       "-Wall",
       "-fdata-sections",
@@ -20,20 +20,20 @@
       "build/main.o",
       "Core/Src/main.c"
     ],
-    "directory": "/home/david/Documents/Digital Theremin/Software",
-    "file": "/home/david/Documents/Digital Theremin/Software/Core/Src/main.c",
-    "output": "/home/david/Documents/Digital Theremin/Software/build/main.o"
+    "directory": "/home/david/ThereMin/Software",
+    "file": "/home/david/ThereMin/Software/Core/Src/main.c",
+    "output": "/home/david/ThereMin/Software/build/main.o"
   },
   {
     "arguments": [
-      "/usr/sbin/arm-none-eabi-gcc",
+      "/usr/lib64/ccache/arm-none-eabi-gcc",
       "-c",
-      "-mcpu=cortex-m3",
+      "-mcpu=cortex-m0",
       "-mthumb",
-      "-DSTM32L152xE",
+      "-DSTM32G051xx",
       "-ICore/Inc",
-      "-IDrivers/CMSIS/Device/ST/STM32L1xx/Include",
       "-IDrivers/CMSIS/Include",
+      "-IDrivers/CMSIS/Device/ST/STM32G0xx/Include",
       "-Og",
       "-Wall",
       "-fdata-sections",
@@ -45,97 +45,97 @@
       "build/waveform.o",
       "Core/Src/waveform.c"
     ],
-    "directory": "/home/david/Documents/Digital Theremin/Software",
-    "file": "/home/david/Documents/Digital Theremin/Software/Core/Src/waveform.c",
-    "output": "/home/david/Documents/Digital Theremin/Software/build/waveform.o"
+    "directory": "/home/david/ThereMin/Software",
+    "file": "/home/david/ThereMin/Software/Core/Src/waveform.c",
+    "output": "/home/david/ThereMin/Software/build/waveform.o"
   },
   {
     "arguments": [
-      "/usr/sbin/arm-none-eabi-gcc",
+      "/usr/lib64/ccache/arm-none-eabi-gcc",
       "-c",
-      "-mcpu=cortex-m3",
+      "-mcpu=cortex-m0",
       "-mthumb",
-      "-DSTM32L152xE",
+      "-DSTM32G051xx",
       "-ICore/Inc",
-      "-IDrivers/CMSIS/Device/ST/STM32L1xx/Include",
       "-IDrivers/CMSIS/Include",
+      "-IDrivers/CMSIS/Device/ST/STM32G0xx/Include",
       "-Og",
       "-Wall",
       "-fdata-sections",
       "-ffunction-sections",
       "-g",
       "-gdwarf-2",
-      "-Wa,-a,-ad,-alms=build/stm32l152-setup.lst",
+      "-Wa,-a,-ad,-alms=build/stm32g051-setup.lst",
       "-o",
-      "build/stm32l152-setup.o",
-      "Core/Src/stm32l152-setup.c"
+      "build/stm32g051-setup.o",
+      "Core/Src/stm32g051-setup.c"
     ],
-    "directory": "/home/david/Documents/Digital Theremin/Software",
-    "file": "/home/david/Documents/Digital Theremin/Software/Core/Src/stm32l152-setup.c",
-    "output": "/home/david/Documents/Digital Theremin/Software/build/stm32l152-setup.o"
+    "directory": "/home/david/ThereMin/Software",
+    "file": "/home/david/ThereMin/Software/Core/Src/stm32g051-setup.c",
+    "output": "/home/david/ThereMin/Software/build/stm32g051-setup.o"
   },
   {
     "arguments": [
-      "/usr/sbin/arm-none-eabi-gcc",
+      "/usr/lib64/ccache/arm-none-eabi-gcc",
       "-c",
-      "-mcpu=cortex-m3",
+      "-mcpu=cortex-m0",
       "-mthumb",
-      "-DSTM32L152xE",
+      "-DSTM32G051xx",
       "-ICore/Inc",
-      "-IDrivers/CMSIS/Device/ST/STM32L1xx/Include",
       "-IDrivers/CMSIS/Include",
+      "-IDrivers/CMSIS/Device/ST/STM32G0xx/Include",
       "-Og",
       "-Wall",
       "-fdata-sections",
       "-ffunction-sections",
       "-g",
       "-gdwarf-2",
-      "-Wa,-a,-ad,-alms=build/stm32l1xx_it.lst",
+      "-Wa,-a,-ad,-alms=build/stm32g0xx_it.lst",
       "-o",
-      "build/stm32l1xx_it.o",
-      "Core/Src/stm32l1xx_it.c"
+      "build/stm32g0xx_it.o",
+      "Core/Src/stm32g0xx_it.c"
     ],
-    "directory": "/home/david/Documents/Digital Theremin/Software",
-    "file": "/home/david/Documents/Digital Theremin/Software/Core/Src/stm32l1xx_it.c",
-    "output": "/home/david/Documents/Digital Theremin/Software/build/stm32l1xx_it.o"
+    "directory": "/home/david/ThereMin/Software",
+    "file": "/home/david/ThereMin/Software/Core/Src/stm32g0xx_it.c",
+    "output": "/home/david/ThereMin/Software/build/stm32g0xx_it.o"
   },
   {
     "arguments": [
-      "/usr/sbin/arm-none-eabi-gcc",
+      "/usr/lib64/ccache/arm-none-eabi-gcc",
       "-c",
-      "-mcpu=cortex-m3",
+      "-mcpu=cortex-m0",
       "-mthumb",
-      "-DSTM32L152xE",
+      "-DSTM32G051xx",
       "-ICore/Inc",
-      "-IDrivers/CMSIS/Device/ST/STM32L1xx/Include",
       "-IDrivers/CMSIS/Include",
+      "-IDrivers/CMSIS/Device/ST/STM32G0xx/Include",
       "-Og",
       "-Wall",
       "-fdata-sections",
       "-ffunction-sections",
       "-g",
       "-gdwarf-2",
-      "-Wa,-a,-ad,-alms=build/system_stm32l1xx.lst",
+      "-Wa,-a,-ad,-alms=build/system_stm32g051.lst",
       "-o",
-      "build/system_stm32l1xx.o",
-      "Core/Src/system_stm32l1xx.c"
+      "build/system_stm32g051.o",
+      "Core/Src/system_stm32g051.c"
     ],
-    "directory": "/home/david/Documents/Digital Theremin/Software",
-    "file": "/home/david/Documents/Digital Theremin/Software/Core/Src/system_stm32l1xx.c",
-    "output": "/home/david/Documents/Digital Theremin/Software/build/system_stm32l1xx.o"
+    "directory": "/home/david/ThereMin/Software",
+    "file": "/home/david/ThereMin/Software/Core/Src/system_stm32g051.c",
+    "output": "/home/david/ThereMin/Software/build/system_stm32g051.o"
   },
   {
     "arguments": [
-      "/usr/sbin/arm-none-eabi-gcc",
+      "/usr/lib64/ccache/arm-none-eabi-gcc",
       "-x",
       "assembler-with-cpp",
       "-c",
-      "-mcpu=cortex-m3",
+      "-mcpu=cortex-m0",
       "-mthumb",
-      "-DSTM32L152xE",
+      "-DSTM32G051xx",
       "-ICore/Inc",
-      "-IDrivers/CMSIS/Device/ST/STM32L1xx/Include",
       "-IDrivers/CMSIS/Include",
+      "-IDrivers/CMSIS/Device/ST/STM32G0xx/Include",
       "-Og",
       "-Wall",
       "-fdata-sections",
@@ -143,11 +143,11 @@
       "-g",
       "-gdwarf-2",
       "-o",
-      "build/startup_stm32l152xe.o",
-      "startup_stm32l152xe.s"
+      "build/startup_stm32g051xx.o",
+      "startup_stm32g051xx.s"
     ],
-    "directory": "/home/david/Documents/Digital Theremin/Software",
-    "file": "/home/david/Documents/Digital Theremin/Software/startup_stm32l152xe.s",
-    "output": "/home/david/Documents/Digital Theremin/Software/build/startup_stm32l152xe.o"
+    "directory": "/home/david/ThereMin/Software",
+    "file": "/home/david/ThereMin/Software/startup_stm32g051xx.s",
+    "output": "/home/david/ThereMin/Software/build/startup_stm32g051xx.o"
   }
 ]

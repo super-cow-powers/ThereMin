@@ -193,7 +193,10 @@ void configure_gpio (void) {
 static void
 _configIRQs (void)
 {
-  
+  NVIC_EnableIRQ(TIM3_IRQn);
+  NVIC_EnableIRQ(DMA1_Channel6_IRQn);
+  NVIC_EnableIRQ(DMA1_Channel2_IRQn);
+  NVIC_EnableIRQ(DMA1_Channel3_IRQn);
 }
 
 void offsetDacTimer(int32_t offset) {

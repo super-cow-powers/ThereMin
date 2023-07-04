@@ -4,7 +4,7 @@
 
 #define FRQ_CNT_SAMPLES 32
 #define VOL_CNT_SAMPLES 64
-#define INITIAL_DAC_ARR 1000
+#define INITIAL_DAC_ARR 3000
 
 extern volatile uint16_t volumeInputBuffer[VOL_CNT_SAMPLES];
 extern volatile uint16_t pitchInputBuffer[FRQ_CNT_SAMPLES];

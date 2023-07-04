@@ -15,3 +15,7 @@ The devices are fairly cheap - about £12-15 for the basic device with no LEDs o
 ## Firmware
 The firmware uses device files from ST Micro and ARM CMSIS, the rest can be blamed on me. The ST HAL is not being used, because it looked like a good idea to not use it when I started...
 The software is fairly simple although does make heavy use of the DMA engine and Timers - these are described in the chip reference manual and, briefly, in comments.
+
+-----
+
+This was initially designed as a lab kit for the [York Engineering Society](https://github.com/EngYork).

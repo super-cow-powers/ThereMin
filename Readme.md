@@ -1,4 +1,4 @@
-### ThereMin()
+# ThereMin()
 Minimal Digital Theremin, based on a pair of NE555p timers and an STM32G0.
 
 ![Completed Device](./device.jpg)
@@ -19,7 +19,7 @@ The devices are fairly cheap - about £12-15 for the basic device with no LEDs o
 
 The cases are drilled by hand, using a 13mm bit for the rear cables, a 6.5mm and 7.5mm bit for the front switch and pot, and a 6mm bit for the (four) holes on the top. There's no drilling template, just use a centre-punch in the right place for the hole's purpose and drill. 
 
-# "Antennae"
+### "Antennae"
 The Antennae (capacitor plates, really) are not too critical. Mine are made from thin brass rod which will fit into the jacks; any conductor which fits the jacks will work - make it into a loop which looks like a theremin antenna aught, with one "leg" slightly shorter than the other for the non-connected end. The bigger the antenna the more sensitive the response generally speaking, although I've found that there's not much to gain with this device from a huge antenna.
 
 ## Firmware
@@ -27,7 +27,7 @@ The firmware uses device files from ST Micro and ARM CMSIS, the rest can be blam
 
 The software is fairly simple although does make heavy use of the DMA engine and Timers - these are described in the chip reference manual and, briefly, in comments.
 
-# Building
+### Building
 The firmware builds with Make and Arm GCC (I suspect ARMCC6 would work, too, but I'm not going to try it) and should build on most *nix systems - it might work on Windows under WSL or mingw, but you're on your own with that one. For anyone who doesn't want to build the firmware, the latest binary is just in the build directory.
 
 The firmware can be flashed with your favourite flashing tool; a script for an ST-Link V2 with OpenOCD is provided, but I recommend just using STMCubeProg if you're either inexperienced or running Windows. 

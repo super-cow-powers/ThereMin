@@ -74,23 +74,6 @@ static void _configureDacDMA(void) {
 }
 
 static void _configureVolDMA(void) {
-  //Volume Timer DMA
-  DMAMUX1_Channel3->CCR |= (uint32_t)43 << DMAMUX_CxCR_DMAREQ_ID_Pos; //Select request 43 (TIM15 UP)
-  
-  DMA1_Channel4->CCR |= 0b01 << DMA_CCR_PL_Pos; //Medium Priority
-  DMA1_Channel4->CCR |= 0b01 << DMA_CCR_MSIZE_Pos; //16 Bit data (memory)
-  DMA1_Channel4->CCR |= 0b01 << DMA_CCR_PSIZE_Pos; //16 Bit data (peripheral)
-  DMA1_Channel4->CCR |= 0b1 << DMA_CCR_MINC_Pos; //Auto-increment memory position
-  DMA1_Channel4->CCR |= 0b1 << DMA_CCR_CIRC_Pos; //Circular buffer mode
-  DMA1_Channel4->CCR |= 0b1 << DMA_CCR_TCIE_Pos; //Transfer Complete IRQ Enable
-  DMA1_Channel4->CCR &= ~(0b1 << DMA_CCR_DIR_Pos); //Read from peripheral to memory
-  DMA1_Channel4->CNDTR = VOL_CNT_SAMPLES; //Set length of data buffer
-  DMA1_Channel4->CPAR = (uint32_t)(&(TIM15->CCR1)); //Data from Timer CCR1 output
-  DMA1_Channel4->CMAR = (uint32_t)((uint16_t*)volumeInputBuffer); //Data to frequency Buffer
-  DMA1_Channel4->CCR |= 0b1 << DMA_CCR_EN_Pos; //Enable Channel
-}
-
-static void _configurePitchDMA(void) {
   //Pitch Timer DMA
   DMAMUX1_Channel1->CCR |= (uint32_t)37 << DMAMUX_CxCR_DMAREQ_ID_Pos; //Select request 37 (TIM3 UP)
   
@@ -101,10 +84,28 @@ static void _configurePitchDMA(void) {
   DMA1_Channel2->CCR |= 0b1 << DMA_CCR_CIRC_Pos; //Circular buffer mode
   DMA1_Channel2->CCR |= 0b1 << DMA_CCR_TCIE_Pos; //Transfer Complete IRQ Enable
   DMA1_Channel2->CCR &= ~(0b1 << DMA_CCR_DIR_Pos); //Read from peripheral to memory
-  DMA1_Channel2->CNDTR = FRQ_CNT_SAMPLES; //Set length of data buffer
+  DMA1_Channel2->CNDTR = VOL_CNT_SAMPLES; //Set length of data buffer
   DMA1_Channel2->CPAR = (uint32_t)(&(TIM3->CCR1)); //Data from Timer CCR1 output
-  DMA1_Channel2->CMAR = (uint32_t)((uint16_t*)pitchInputBuffer); //Data to frequency Buffer
+  DMA1_Channel2->CMAR = (uint32_t)((uint16_t*)volumeInputBuffer); //Data to frequency Buffer
   DMA1_Channel2->CCR |= 0b1 << DMA_CCR_EN_Pos; //Enable Channel
+
+}
+
+static void _configurePitchDMA(void) {
+    //Volume Timer DMA
+  DMAMUX1_Channel3->CCR |= (uint32_t)43 << DMAMUX_CxCR_DMAREQ_ID_Pos; //Select request 43 (TIM15 UP)
+  
+  DMA1_Channel4->CCR |= 0b01 << DMA_CCR_PL_Pos; //Medium Priority
+  DMA1_Channel4->CCR |= 0b01 << DMA_CCR_MSIZE_Pos; //16 Bit data (memory)
+  DMA1_Channel4->CCR |= 0b01 << DMA_CCR_PSIZE_Pos; //16 Bit data (peripheral)
+  DMA1_Channel4->CCR |= 0b1 << DMA_CCR_MINC_Pos; //Auto-increment memory position
+  DMA1_Channel4->CCR |= 0b1 << DMA_CCR_CIRC_Pos; //Circular buffer mode
+  DMA1_Channel4->CCR |= 0b1 << DMA_CCR_TCIE_Pos; //Transfer Complete IRQ Enable
+  DMA1_Channel4->CCR &= ~(0b1 << DMA_CCR_DIR_Pos); //Read from peripheral to memory
+  DMA1_Channel4->CNDTR = FRQ_CNT_SAMPLES; //Set length of data buffer
+  DMA1_Channel4->CPAR = (uint32_t)(&(TIM15->CCR1)); //Data from Timer CCR1 output
+  DMA1_Channel4->CMAR = (uint32_t)((uint16_t*)pitchInputBuffer); //Data to frequency Buffer
+  DMA1_Channel4->CCR |= 0b1 << DMA_CCR_EN_Pos; //Enable Channel
 }
 
 /** Configure the DMA Engine */
